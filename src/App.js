@@ -11,9 +11,10 @@ class App extends Component {
     this.state = {
       base_url: 'http://localhost:7574',
       inventory: [],
-      currentProduct: []
+      currentProduct: {}
     }
-    this.getInventory = this.getInventory.bind(this);
+    this.getInventory = this.getInventory.bind( this );
+    this.editProduct = this.editProduct.bind( this );
   }
 
   componentDidMount() {
@@ -21,19 +22,26 @@ class App extends Component {
   }
 
   getInventory() {
-    axios.get(`${this.state.base_url}/api/inventory`).then(res => {
-      this.setState({
-        inventory: res.data
+    axios.get( `${this.state.base_url}/api/inventory` )
+      .then(res => {
+        this.setState({
+          inventory: res.data
+        })
       })
-    })
   }
 
+  editProduct( item ) {
+    this.setState({
+      currentProduct: item
+    })
+  }
+  
   render() {
     let { inventory, base_url, currentProduct } = this.state;
     return (
       <div>
         <Header />
-        <Dashboard inventory={ inventory } getInventory={ this.getInventory } base_url={ base_url } />
+        <Dashboard inventory={ inventory } getInventory={ this.getInventory } base_url={ base_url } editProduct={this.editProduct} />
         <Form getInventory={ this.getInventory } base_url={ base_url } currentProduct={ currentProduct } />
       </div>
     );

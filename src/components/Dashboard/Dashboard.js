@@ -8,25 +8,25 @@ class Dashboard extends Component {
         this.state = {
 
         }
-        this.deleteProduct = this.deleteProduct.bind(this)
+        this.deleteProduct = this.deleteProduct.bind( this )
     }
 
-    deleteProduct(id) {
+    deleteProduct( id ) {
         let { base_url, getInventory } = this.props
-        axios.delete(`${base_url}/api/product/${id}`).then(() => getInventory());
+        axios.delete(`${ base_url }/api/product/${ id }` ).then( () => getInventory() );
     }
 
     render() {
-        let dashboard = this.props.inventory.map((item, i) => {
+        let dashboard = this.props.inventory.map(item => {
             return (
-                <div key={i}>
-                    <Product item={item} deleteProduct={this.deleteProduct} />
+                <div key={ item.id }>
+                    <Product item={ item } deleteProduct={ this.deleteProduct } editProduct={ this.props.editProduct } />
                 </div>
             );
         })
         return (
             <div>
-                {dashboard}
+                { dashboard }
             </div>
         );
     }

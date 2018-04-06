@@ -29,5 +29,17 @@ module.exports = {
                 console.log(err);
                 res.status(500).send(err);
             })       
+    },
+    update: (req, res) => {
+        const db = req.app.get('db');
+        let { name, price, img } = req.body;
+        let { id } = req.params;
+        
+        db.update_product(id, name, price, img)
+            .then(() => res.status(200).send())
+            .catch(err => {
+                console.log(err);
+                res.status(500).send(err);
+            })
     }
 }
