@@ -8,6 +8,17 @@ module.exports = {
                 res.status(500).send(err);
             })
     },
+    getById: (req, res) => {
+        const db = req.app.get('db');
+        let { id } = req.params;
+
+        db.get_by_id([id])
+            .then( item => res.status(200).send(item) )
+            .catch(err => {
+                console.log(err);
+                res.status(500).send(err);
+            })
+    },
     createProduct: (req, res) => {
         const db = req.app.get('db');
         let { name, price, img } = req.body

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Form extends Component {
     constructor() {
@@ -11,6 +12,21 @@ class Form extends Component {
             id: null
         }
     }
+
+    // componentDidMount() {
+    //     if( this.props.match.params.id ) {
+    //         let { id } = this.props.match.params
+    //         axios.get(`${ this.props.base_url }/api/inventory${ id }`)
+    //         .then( res => {
+    //             this.setState({
+    //                 name: res.name,
+    //                 price: res.price,
+    //                 img: res.img,
+    //                 id: res.id
+    //             })
+    //         })
+    //     }
+    // }
 
     handleName( val ){
         this.setState({
@@ -73,12 +89,18 @@ class Form extends Component {
                 <input value={ img } type='text' placeholder="Image URL" onChange={e => this.handleImg(e.target.value)} />
                 <input value={ name } type='text' placeholder="Product Name" onChange={e => this.handleName(e.target.value)} />
                 <input value={ price } type='number' placeholder="Price" onChange={e => this.handlePrice(e.target.value)} />
-                <button onClick={ () => this.handleCancel() }>Cancel</button>
+                <Link to='/'>
+                    <button onClick={ () => this.handleCancel() }>Cancel</button>
+                </Link>
                 { id 
                 ? 
-                <button onClick={ () => this.editProduct() }>Save Changes</button>
+                <Link to='/'>
+                    <button onClick={ () => this.editProduct() }>Save Changes</button>
+                </Link>
                 :
-                <button onClick={ () => this.createProduct() }>Add to Inventory</button>
+                <Link to='/'>
+                    <button onClick={ () => this.createProduct() }>Add to Inventory</button>
+                </Link>
                 }
             </div>
         );
