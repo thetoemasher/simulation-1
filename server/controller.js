@@ -1,0 +1,22 @@
+module.exports = {
+    getAll: (req, res) => {
+        const db = req.app.get('db');
+        db.get_inventory()
+            .then(inventory => res.status(200).send(inventory))
+            .catch(err => {
+                console.log(err);
+                res.status(500).send(err);
+            })
+    },
+    createProduct: (req, res) => {
+        const db = req.app.get('db');
+        let { name, price, img } = req.body
+        
+        db.create_product(name, price, img)
+            .then(res.status(200).send())
+            .catch(err => {
+                console.log(err);
+                res.status(500).send(err);
+            })
+    }
+}
