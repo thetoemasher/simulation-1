@@ -10,8 +10,10 @@ class App extends Component {
     super();
     this.state = {
       base_url: 'http://localhost:7574',
-      inventory: []
+      inventory: [],
+      currentProduct: []
     }
+    this.getInventory = this.getInventory.bind(this);
   }
 
   componentDidMount() {
@@ -27,12 +29,12 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.inventory)
+    let { inventory, base_url, currentProduct } = this.state;
     return (
       <div>
         <Header />
-        <Dashboard inventory={this.state.inventory} />
-        <Form />
+        <Dashboard inventory={ inventory } getInventory={ this.getInventory } base_url={ base_url } />
+        <Form getInventory={ this.getInventory } base_url={ base_url } currentProduct={ currentProduct } />
       </div>
     );
   }
